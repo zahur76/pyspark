@@ -6,8 +6,10 @@ df  = pd.read_csv('docs\database.csv')
 add_year = lambda str: str.split("/")[-1].split('-')[0]
 
 df["Year"] = df.Date.apply(add_year)
+
 # print data
 df2 = df[['Date', 'Latitude', 'Longitude', 'Type', 'Depth', 'Magnitude', 'Magnitude Type', 'ID', 'Year']]
+
 
 df_quake_freq = df2.groupby(['Year'])['ID'].count().reset_index().rename(columns={'ID': 'Counts'})
 
@@ -23,4 +25,4 @@ print(df_avg.head())
 
 df_full = df_quake_freq.set_index('Year').join(df_max.set_index('Year')).join(df_avg.set_index('Year'))
 
-print(df_full)
+print(df_full.head)
